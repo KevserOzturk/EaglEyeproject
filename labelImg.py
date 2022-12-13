@@ -1,14 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import argparse
-import codecs
+import argparse #girilen parametreye göre hata veya mesaj yazdırır.
+import codecs #provides access to the internal Python codec registry, which manages the codec and error handling lookup process. Most standard codecs are text encodings, which encode text to bytes (and decode bytes to text), but there are also codecs provided that encode text to text, and bytes to bytes. Custom codecs may encode and decode between arbitrary types.
 import os.path
-import platform
-import shutil
+import platform #provides functions that access information of the underlying platform (operating system). The output is meant to be viewable by humans rather than machines.
+import shutil #offers high-level operation on a file like a copy, create, and remote operation on the file.helps in automating the process of copying and removal of files and directories.
 import sys
-import webbrowser as wb
-from functools import partial
-
+import webbrowser as wb #provides a high-level interface that allows displaying Web-based documents to user's. web browser can also be used as a CLI tool.
+from functools import partial #birbiri üzerinde çalışan fonksiyonlar için kullanılır
 try:
     from PyQt5.QtGui import *
     from PyQt5.QtCore import *
