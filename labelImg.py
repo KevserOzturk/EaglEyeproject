@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #! enes Branch kontrolür
+# pyrcc5 -o libs/resources.py resources.qrc
 import argparse
 import codecs
 import os.path
