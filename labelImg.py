@@ -385,22 +385,22 @@ class MainWindow(QMainWindow, WindowMixin):
             get_str("crtBoxDetail"),
             enabled=False,
         )
-        delete = action(
-            get_str("delBox"),
-            self.delete_selected_shape,
-            "Delete",
-            "delete",
-            get_str("delBoxDetail"),
-            enabled=False,
-        )
-        copy = action(
-            get_str("dupBox"),
-            self.copy_selected_shape,
-            "Ctrl+D",
-            "copy",
-            get_str("dupBoxDetail"),
-            enabled=False,
-        )
+        # delete = action(
+        #     get_str("delBox"),
+        #     self.delete_selected_shape,
+        #     "Delete",
+        #     "delete",
+        #     get_str("delBoxDetail"),
+        #     enabled=False,
+        # )
+        # copy = action(
+        #     get_str("dupBox"),
+        #     self.copy_selected_shape,
+        #     "Ctrl+D",
+        #     "copy",
+        #     get_str("dupBoxDetail"),
+        #     enabled=False,
+        # )
 
         advanced_mode = action(
             get_str("advancedMode"),
@@ -584,7 +584,13 @@ class MainWindow(QMainWindow, WindowMixin):
 
         # Label list context menu.
         label_menu = QMenu()
-        add_actions(label_menu, (edit, delete))
+        add_actions(
+            label_menu,
+            (
+                edit,
+                #  delete
+            ),
+        )
         self.label_list.setContextMenuPolicy(Qt.CustomContextMenu)
         self.label_list.customContextMenuRequested.connect(self.pop_label_list_menu)
 
@@ -606,9 +612,9 @@ class MainWindow(QMainWindow, WindowMixin):
             deleteImg=delete_image,
             lineColor=color1,
             create=create,
-            delete=delete,
+            # delete=delete,
             edit=edit,
-            copy=copy,
+            # copy=copy,
             createMode=create_mode,
             editMode=edit_mode,
             advancedMode=advanced_mode,
@@ -628,14 +634,24 @@ class MainWindow(QMainWindow, WindowMixin):
             fileMenuActions=(open, open_dir, save, save_as, close, reset_all, quit),
             beginner=(),
             advanced=(),
-            editMenu=(edit, copy, delete, None, color1, self.draw_squares_option),
-            beginnerContext=(create, edit, copy, delete),
+            editMenu=(
+                edit,
+                #   copy, delete,
+                None,
+                color1,
+                self.draw_squares_option,
+            ),
+            beginnerContext=(
+                create,
+                edit,
+                # copy, delete
+            ),
             advancedContext=(
                 create_mode,
                 edit_mode,
                 edit,
-                copy,
-                delete,
+                # copy,
+                # delete,
                 shape_line_color,
                 shape_fill_color,
             ),
@@ -720,7 +736,7 @@ class MainWindow(QMainWindow, WindowMixin):
         add_actions(
             self.canvas.menus[1],
             (
-                action("&Copy here", self.copy_shape),
+                # action("&Copy here", self.copy_shape),
                 action("&Move here", self.move_shape),
             ),
         )
@@ -737,8 +753,8 @@ class MainWindow(QMainWindow, WindowMixin):
             save_format,
             None,
             create,
-            copy,
-            delete,
+            # copy,
+            # delete,
             None,
             zoom_in,
             zoom,
@@ -1137,8 +1153,8 @@ class MainWindow(QMainWindow, WindowMixin):
                 self.shapes_to_items[shape].setSelected(True)
             else:
                 self.label_list.clearSelection()
-        self.actions.delete.setEnabled(selected)
-        self.actions.copy.setEnabled(selected)
+        # self.actions.delete.setEnabled(selected)
+        # self.actions.copy.setEnabled(selected)
         self.actions.edit.setEnabled(selected)
         self.actions.shapeLineColor.setEnabled(selected)
         self.actions.shapeFillColor.setEnabled(selected)
@@ -1282,10 +1298,10 @@ class MainWindow(QMainWindow, WindowMixin):
             self.error_message("Error saving label data", "<b>%s</b>" % e)
             return False
 
-    def copy_selected_shape(self):
-        self.add_label(self.canvas.copy_selected_shape())
-        # fix copy and delete
-        self.shape_selection_changed(True)
+    # def copy_selected_shape(self):
+    #     self.add_label(self.canvas.copy_selected_shape())
+    #     # fix copy and delete
+    #     self.shape_selection_changed(True)
 
     def combo_selection_changed(self, index):
         text = self.combo_box.cb.itemText(index)
@@ -1983,12 +1999,12 @@ class MainWindow(QMainWindow, WindowMixin):
             self.canvas.update()
             self.set_dirty()
 
-    def delete_selected_shape(self):
-        self.remove_label(self.canvas.delete_selected())
-        self.set_dirty()
-        if self.no_shapes():
-            for action in self.actions.onShapesPresent:
-                action.setEnabled(False)
+    # def delete_selected_shape(self):
+    #     self.remove_label(self.canvas.delete_selected())
+    #     self.set_dirty()
+    #     if self.no_shapes():
+    #         for action in self.actions.onShapesPresent:
+    #             action.setEnabled(False)
 
     def choose_shape_line_color(self):
         color = self.color_dialog.getColor(
@@ -2008,13 +2024,13 @@ class MainWindow(QMainWindow, WindowMixin):
             self.canvas.update()
             self.set_dirty()
 
-    def copy_shape(self):
-        if self.canvas.selected_shape is None:
-            # True if one accidentally touches the left mouse button before releasing
-            return
-        self.canvas.end_move(copy=True)
-        self.add_label(self.canvas.selected_shape)
-        self.set_dirty()
+    # def copy_shape(self):
+    #     if self.canvas.selected_shape is None:
+    #         # True if one accidentally touches the left mouse button before releasing
+    #         return
+    #     self.canvas.end_move(copy=True)
+    #     self.add_label(self.canvas.selected_shape)
+    #     self.set_dirty()
 
     def move_shape(self):
         self.canvas.end_move(copy=False)
