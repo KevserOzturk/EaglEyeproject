@@ -437,7 +437,7 @@ class MainWindow(QMainWindow, WindowMixin):
             self.display_label_option,
             labels, advanced_mode, None,
             hide_all, show_all, None,
-            zoom_in, zoom_out, zoom_org, None,
+            zoom _in, zoom_out, zoom_org, None,
             fit_window, fit_width, None,
             light_brighten, light_darken, light_org))
         """
