@@ -12,7 +12,7 @@
 
 from PyQt5 import QtCore
 
-qt_resource_data = b"\
+qt_resource_data = "b"\
 <<<<<<< HEAD
 \x00\x00\x07\x7b\
 \x89\
