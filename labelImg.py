@@ -48,7 +48,7 @@ from libs.create_ml_io import JSON_EXT
 from libs.ustr import ustr
 from libs.hashableQListWidgetItem import HashableQListWidgetItem
 
-__appname__ = 'labelImg'
+__appname__ = "EaglEye"
 
 
 class WindowMixin(object):
@@ -403,9 +403,9 @@ class MainWindow(QMainWindow, WindowMixin):
 
         self.menus = Struct(
             file=self.menu(get_str('menu_file')),
-            edit=self.menu(get_str('menu_edit')),
-            view=self.menu(get_str('menu_view')),
-            help=self.menu(get_str('menu_help')),
+           # edit=self.menu(get_str('menu_edit')),
+           # view=self.menu(get_str('menu_view')),
+           # help=self.menu(get_str('menu_help')),
             recentFiles=QMenu(get_str('menu_openRecent')),
             labelList=label_menu)
 
@@ -428,16 +428,19 @@ class MainWindow(QMainWindow, WindowMixin):
 
         add_actions(self.menus.file,
                     (open, open_dir, change_save_dir, open_annotation, copy_prev_bounding, self.menus.recentFiles, save, save_format, save_as, close, reset_all, delete_image, quit))
-        add_actions(self.menus.help, (help_default, show_info, show_shortcut))
+        #add_actions(self.menus.help, (help_default, show_info, show_shortcut))
+       
+        """
         add_actions(self.menus.view, (
             self.auto_saving,
             self.single_class_mode,
             self.display_label_option,
             labels, advanced_mode, None,
             hide_all, show_all, None,
-            zoom_in, zoom_out, zoom_org, None,
+            zoom _in, zoom_out, zoom_org, None,
             fit_window, fit_width, None,
             light_brighten, light_darken, light_org))
+        """
 
         self.menus.file.aboutToShow.connect(self.update_file_menu)
 
@@ -447,7 +450,7 @@ class MainWindow(QMainWindow, WindowMixin):
             action('&Copy here', self.copy_shape),
             action('&Move here', self.move_shape)))
 
-        self.tools = self.toolbar('Tools')
+        self.tools = self.toolbar('Tools')#ad
         self.actions.beginner = (
             open, open_dir, change_save_dir, open_next_image, open_prev_image, verify, save, save_format, None, create, copy, delete, None,
             zoom_in, zoom, zoom_out, fit_window, fit_width, None,
@@ -603,10 +606,12 @@ class MainWindow(QMainWindow, WindowMixin):
         add_actions(self.tools, tool)
         self.canvas.menus[0].clear()
         add_actions(self.canvas.menus[0], menu)
+        """
         self.menus.edit.clear()
         actions = (self.actions.create,) if self.beginner()\
             else (self.actions.createMode, self.actions.editMode)
         add_actions(self.menus.edit, actions + self.actions.editMenu)
+        """
 
     def set_beginner(self):
         self.tools.clear()
