@@ -998,7 +998,7 @@ class MainWindow(QMainWindow, WindowMixin):
         bar = self.scroll_bars[orientation]
         bar.setValue(int(bar.value() + bar.singleStep() * units))
 
-    def set_zoom(self, value):
+"""     def set_zoom(self, value):
         self.actions.fitWidth.setChecked(False)
         self.actions.fitWindow.setChecked(False)
         self.zoom_mode = self.MANUAL_ZOOM
@@ -1060,7 +1060,7 @@ class MainWindow(QMainWindow, WindowMixin):
 
         h_bar.setValue(new_h_bar_value)
         v_bar.setValue(new_v_bar_value)
-
+ """
     def light_request(self, delta):
         self.add_light(5*delta // (8 * 15))
 
