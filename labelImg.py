@@ -297,7 +297,7 @@ class MainWindow(QMainWindow, WindowMixin):
         show_info = action(get_str('info'), self.show_info_dialog, None, 'help', get_str('info'))
         show_shortcut = action(get_str('shortcut'), self.show_shortcuts_dialog, None, 'help', get_str('shortcut'))
 
-        zoom = QWidgetAction(self)
+"""         zoom = QWidgetAction(self)
         zoom.setDefaultWidget(self.zoom_widget)
         self.zoom_widget.setWhatsThis(
             u"Zoom in or out of the image. Also accessible with"
@@ -326,7 +326,7 @@ class MainWindow(QMainWindow, WindowMixin):
             self.FIT_WIDTH: self.scale_fit_width,
             # Set to one to scale to 100% when loading files.
             self.MANUAL_ZOOM: lambda: 1,
-        }
+        } """
 
         light = QWidgetAction(self)
         light.setDefaultWidget(self.light_widget)
