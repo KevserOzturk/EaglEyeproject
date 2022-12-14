@@ -403,7 +403,7 @@ class MainWindow(QMainWindow, WindowMixin):
 
         self.menus = Struct(
             file=self.menu(get_str('menu_file')),
-            edit=self.menu(get_str('menu_edit')),
+           # edit=self.menu(get_str('menu_edit')),
            # view=self.menu(get_str('menu_view')),
            # help=self.menu(get_str('menu_help')),
             recentFiles=QMenu(get_str('menu_openRecent')),
