@@ -545,11 +545,11 @@ class MainWindow(QMainWindow, WindowMixin):
         if self.file_path and os.path.isdir(self.file_path):
             self.open_dir_dialog(dir_path=self.file_path, silent=True)
 
-    app = QApplication(sys.argv)
+    # app = QApplication(sys.argv)
     
-    # # Apply dark theme.
+    # # # Apply dark theme.
 
-    self = qdarktheme.setup_theme()
+    # self = qdarktheme.setup_theme()
     
 
     def keyReleaseEvent(self, event):
