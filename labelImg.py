@@ -8,7 +8,7 @@ import shutil
 import sys
 import webbrowser as wb
 from functools import partial
-import qdarktheme
+#import qdarktheme
 
 try:
     from PyQt5.QtGui import *
@@ -543,11 +543,11 @@ class MainWindow(QMainWindow, WindowMixin):
         if self.file_path and os.path.isdir(self.file_path):
             self.open_dir_dialog(dir_path=self.file_path, silent=True)
 
-    app = QApplication(sys.argv)
+    """ app = QApplication(sys.argv)
     
     # Apply dark theme.
     qdarktheme.setup_theme()
-
+ """
     
     
     
