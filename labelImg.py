@@ -303,12 +303,12 @@ class MainWindow(QMainWindow, WindowMixin):
             """
             returns a tuple containing (title, icon_name) of the selected format
             """
-            if format == LabelFileFormat.PASCAL_VOC:
-                return "&PascalVOC", "format_voc"
-            elif format == LabelFileFormat.YOLO:
+            # if format == LabelFileFormat.PASCAL_VOC:
+            #     return "&PascalVOC", "format_voc"
+            if format == LabelFileFormat.YOLO:
                 return "&YOLO", "format_yolo"
-            elif format == LabelFileFormat.CREATE_ML:
-                return "&CreateML", "format_createml"
+            # elif format == LabelFileFormat.CREATE_ML:
+            #     return "&CreateML", "format_createml"
 
         save_format = action(
             get_format_meta(self.label_file_format)[0],
@@ -888,23 +888,23 @@ class MainWindow(QMainWindow, WindowMixin):
 
     # Support Functions #
     def set_format(self, save_format):
-        if save_format == FORMAT_PASCALVOC:
-            self.actions.save_format.setText(FORMAT_PASCALVOC)
-            self.actions.save_format.setIcon(new_icon("format_voc"))
-            self.label_file_format = LabelFileFormat.PASCAL_VOC
-            LabelFile.suffix = XML_EXT
+        # if save_format == FORMAT_PASCALVOC:
+        #     self.actions.save_format.setText(FORMAT_PASCALVOC)
+        #     self.actions.save_format.setIcon(new_icon("format_voc"))
+        #     self.label_file_format = LabelFileFormat.PASCAL_VOC
+        #     LabelFile.suffix = XML_EXT
 
-        elif save_format == FORMAT_YOLO:
+        if save_format == FORMAT_YOLO:
             self.actions.save_format.setText(FORMAT_YOLO)
             self.actions.save_format.setIcon(new_icon("format_yolo"))
             self.label_file_format = LabelFileFormat.YOLO
             LabelFile.suffix = TXT_EXT
 
-        elif save_format == FORMAT_CREATEML:
-            self.actions.save_format.setText(FORMAT_CREATEML)
-            self.actions.save_format.setIcon(new_icon("format_createml"))
-            self.label_file_format = LabelFileFormat.CREATE_ML
-            LabelFile.suffix = JSON_EXT
+        # elif save_format == FORMAT_CREATEML:
+        #     self.actions.save_format.setText(FORMAT_CREATEML)
+        #     self.actions.save_format.setIcon(new_icon("format_createml"))
+        #     self.label_file_format = LabelFileFormat.CREATE_ML
+        #     LabelFile.suffix = JSON_EXT
 
     def change_format(self):
         if self.label_file_format == LabelFileFormat.PASCAL_VOC:
