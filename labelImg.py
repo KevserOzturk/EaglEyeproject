@@ -669,9 +669,9 @@ class MainWindow(QMainWindow, WindowMixin):
         )
 
         # Auto saving : Enable auto saving if pressing next
-        self.dark_theme = QAction(get_str("darkMode"), self)
+        self.dark_theme = QAction(get_str("darkTheme"), self)
         self.dark_theme.setCheckable(True)
-        self.dark_theme.setChecked(settings.get(SETTİNG_DARK_THEME, False))
+        self.dark_theme.setChecked(settings.get(SETTING_DARK_THEME, False))
         # Sync single class mode from PR#106
         self.single_class_mode = QAction(get_str("singleClsMode"), self)
         self.single_class_mode.setShortcut("Ctrl+Shift+S")
