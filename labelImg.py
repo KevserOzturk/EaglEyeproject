@@ -669,9 +669,9 @@ class MainWindow(QMainWindow, WindowMixin):
         )
 
         # Auto saving : Enable auto saving if pressing next
-        self.auto_saving = QAction(get_str("autoSaveMode"), self)
-        self.auto_saving.setCheckable(True)
-        self.auto_saving.setChecked(settings.get(SETTING_AUTO_SAVE, False))
+        self.dark_theme = QAction(get_str("darkMode"), self)
+        self.dark_theme.setCheckable(True)
+        self.dark_theme.setChecked(settings.get(SETTİNG_DARK_THEME, False))
         # Sync single class mode from PR#106
         self.single_class_mode = QAction(get_str("singleClsMode"), self)
         self.single_class_mode.setShortcut("Ctrl+Shift+S")
@@ -707,7 +707,7 @@ class MainWindow(QMainWindow, WindowMixin):
         add_actions(
             self.menus.view,
             (
-                self.auto_saving,
+                self.dark_theme,
                 self.single_class_mode,
                 self.display_label_option,
                 labels,
@@ -1661,7 +1661,7 @@ class MainWindow(QMainWindow, WindowMixin):
         else:
             settings[SETTING_LAST_OPEN_DIR] = ""
 
-        settings[SETTING_AUTO_SAVE] = self.auto_saving.isChecked()
+        settings[SETTING_DARK_THEME] = self.dark_theme.isChecked()
         settings[SETTING_SINGLE_CLASS] = self.single_class_mode.isChecked()
         settings[SETTING_PAINT_LABEL] = self.display_label_option.isChecked()
         settings[SETTING_DRAW_SQUARE] = self.draw_squares_option.isChecked()
@@ -1810,7 +1810,7 @@ class MainWindow(QMainWindow, WindowMixin):
 
     def open_prev_image(self, _value=False):
         # Proceeding prev image without dialog if having any label
-        if self.auto_saving.isChecked():
+        if self.dark_theme.isChecked():
             if self.default_save_dir is not None:
                 if self.dirty is True:
                     self.save_file()
@@ -1835,7 +1835,7 @@ class MainWindow(QMainWindow, WindowMixin):
 
     def open_next_image(self, _value=False):
         # Proceeding next image without dialog if having any label
-        if self.auto_saving.isChecked():
+        if self.dark_theme.isChecked():
             if self.default_save_dir is not None:
                 if self.dirty is True:
                     self.save_file()
