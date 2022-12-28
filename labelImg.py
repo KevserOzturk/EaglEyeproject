@@ -247,12 +247,12 @@ class MainWindow(QMainWindow, WindowMixin):
             """
             returns a tuple containing (title, icon_name) of the selected format
             """
-            if format == LabelFileFormat.PASCAL_VOC:
-                return '&PascalVOC', 'format_voc'
-            elif format == LabelFileFormat.YOLO:
+            # if format == LabelFileFormat.PASCAL_VOC:
+            #     return '&PascalVOC', 'format_voc'
+            if format == LabelFileFormat.YOLO:
                 return '&YOLO', 'format_yolo'
-            elif format == LabelFileFormat.CREATE_ML:
-                return '&CreateML', 'format_createml'
+            # elif format == LabelFileFormat.CREATE_ML:
+            #     return '&CreateML', 'format_createml'
 
         save_format = action(get_format_meta(self.label_file_format)[0],
                              self.change_format, 'Ctrl+Y',
@@ -571,31 +571,31 @@ class MainWindow(QMainWindow, WindowMixin):
 
     # Support Functions #
     def set_format(self, save_format):
-        if save_format == FORMAT_PASCALVOC:
-            self.actions.save_format.setText(FORMAT_PASCALVOC)
-            self.actions.save_format.setIcon(new_icon("format_voc"))
-            self.label_file_format = LabelFileFormat.PASCAL_VOC
-            LabelFile.suffix = XML_EXT
+        # if save_format == FORMAT_PASCALVOC:
+        #     self.actions.save_format.setText(FORMAT_PASCALVOC)
+        #     self.actions.save_format.setIcon(new_icon("format_voc"))
+        #     self.label_file_format = LabelFileFormat.PASCAL_VOC
+        #     LabelFile.suffix = XML_EXT
 
-        elif save_format == FORMAT_YOLO:
+        if save_format == FORMAT_YOLO:
             self.actions.save_format.setText(FORMAT_YOLO)
             self.actions.save_format.setIcon(new_icon("format_yolo"))
             self.label_file_format = LabelFileFormat.YOLO
             LabelFile.suffix = TXT_EXT
 
-        elif save_format == FORMAT_CREATEML:
-            self.actions.save_format.setText(FORMAT_CREATEML)
-            self.actions.save_format.setIcon(new_icon("format_createml"))
-            self.label_file_format = LabelFileFormat.CREATE_ML
-            LabelFile.suffix = JSON_EXT
+        # elif save_format == FORMAT_CREATEML:
+        #     self.actions.save_format.setText(FORMAT_CREATEML)
+        #     self.actions.save_format.setIcon(new_icon("format_createml"))
+        #     self.label_file_format = LabelFileFormat.CREATE_ML
+        #     LabelFile.suffix = JSON_EXT
 
     def change_format(self):
         if self.label_file_format == LabelFileFormat.PASCAL_VOC:
             self.set_format(FORMAT_YOLO)
-        elif self.label_file_format == LabelFileFormat.YOLO:
-            self.set_format(FORMAT_CREATEML)
-        elif self.label_file_format == LabelFileFormat.CREATE_ML:
-            self.set_format(FORMAT_PASCALVOC)
+        # elif self.label_file_format == LabelFileFormat.YOLO:
+        #     self.set_format(FORMAT_CREATEML)
+        # elif self.label_file_format == LabelFileFormat.CREATE_ML:
+        #     self.set_format(FORMAT_PASCALVOC)
         else:
             raise ValueError('Unknown label file format.')
         self.set_dirty()
@@ -914,21 +914,21 @@ class MainWindow(QMainWindow, WindowMixin):
         shapes = [format_shape(shape) for shape in self.canvas.shapes]
         # Can add different annotation formats here
         try:
-            if self.label_file_format == LabelFileFormat.PASCAL_VOC:
-                if annotation_file_path[-4:].lower() != ".xml":
-                    annotation_file_path += XML_EXT
-                self.label_file.save_pascal_voc_format(annotation_file_path, shapes, self.file_path, self.image_data,
-                                                       self.line_color.getRgb(), self.fill_color.getRgb())
-            elif self.label_file_format == LabelFileFormat.YOLO:
+            # if self.label_file_format == LabelFileFormat.PASCAL_VOC:
+            #     if annotation_file_path[-4:].lower() != ".xml":
+            #         annotation_file_path += XML_EXT
+            #     self.label_file.save_pascal_voc_format(annotation_file_path, shapes, self.file_path, self.image_data,
+            #                                            self.line_color.getRgb(), self.fill_color.getRgb())
+            if self.label_file_format == LabelFileFormat.YOLO:
                 if annotation_file_path[-4:].lower() != ".txt":
                     annotation_file_path += TXT_EXT
                 self.label_file.save_yolo_format(annotation_file_path, shapes, self.file_path, self.image_data, self.label_hist,
                                                  self.line_color.getRgb(), self.fill_color.getRgb())
-            elif self.label_file_format == LabelFileFormat.CREATE_ML:
-                if annotation_file_path[-5:].lower() != ".json":
-                    annotation_file_path += JSON_EXT
-                self.label_file.save_create_ml_format(annotation_file_path, shapes, self.file_path, self.image_data,
-                                                      self.label_hist, self.line_color.getRgb(), self.fill_color.getRgb())
+            # elif self.label_file_format == LabelFileFormat.CREATE_ML:
+            #     if annotation_file_path[-5:].lower() != ".json":
+            #         annotation_file_path += JSON_EXT
+            #     self.label_file.save_create_ml_format(annotation_file_path, shapes, self.file_path, self.image_data,
+            #                                           self.label_hist, self.line_color.getRgb(), self.fill_color.getRgb())
             else:
                 self.label_file.save(annotation_file_path, shapes, self.file_path, self.image_data,
                                      self.line_color.getRgb(), self.fill_color.getRgb())
@@ -1208,24 +1208,24 @@ class MainWindow(QMainWindow, WindowMixin):
             """Annotation file priority:
             PascalXML > YOLO
             """
-            if os.path.isfile(xml_path):
-                self.load_pascal_xml_by_filename(xml_path)
-            elif os.path.isfile(txt_path):
+            # if os.path.isfile(xml_path):
+            #     self.load_pascal_xml_by_filename(xml_path)
+            if os.path.isfile(txt_path):
                 self.load_yolo_txt_by_filename(txt_path)
-            elif os.path.isfile(json_path):
-                self.load_create_ml_json_by_filename(json_path, file_path)
+            # elif os.path.isfile(json_path):
+            #     self.load_create_ml_json_by_filename(json_path, file_path)
 
         else:
-            xml_path = os.path.splitext(file_path)[0] + XML_EXT
+            # xml_path = os.path.splitext(file_path)[0] + XML_EXT
             txt_path = os.path.splitext(file_path)[0] + TXT_EXT
-            json_path = os.path.splitext(file_path)[0] + JSON_EXT
+            # json_path = os.path.splitext(file_path)[0] + JSON_EXT
 
-            if os.path.isfile(xml_path):
-                self.load_pascal_xml_by_filename(xml_path)
-            elif os.path.isfile(txt_path):
+            # if os.path.isfile(xml_path):
+            #     self.load_pascal_xml_by_filename(xml_path)
+            if os.path.isfile(txt_path):
                 self.load_yolo_txt_by_filename(txt_path)
-            elif os.path.isfile(json_path):
-                self.load_create_ml_json_by_filename(json_path, file_path)
+            # elif os.path.isfile(json_path):
+            #     self.load_create_ml_json_by_filename(json_path, file_path)
             
 
     # def resizeEvent(self, event):
@@ -1637,18 +1637,18 @@ class MainWindow(QMainWindow, WindowMixin):
                     else:
                         self.label_hist.append(line)
 
-    def load_pascal_xml_by_filename(self, xml_path):
-        if self.file_path is None:
-            return
-        if os.path.isfile(xml_path) is False:
-            return
+    # def load_pascal_xml_by_filename(self, xml_path):
+    #     if self.file_path is None:
+    #         return
+    #     if os.path.isfile(xml_path) is False:
+    #         return
 
-        self.set_format(FORMAT_PASCALVOC)
+    #     self.set_format(FORMAT_PASCALVOC)
 
-        t_voc_parse_reader = PascalVocReader(xml_path)
-        shapes = t_voc_parse_reader.get_shapes()
-        self.load_labels(shapes)
-        self.canvas.verified = t_voc_parse_reader.verified
+    #     t_voc_parse_reader = PascalVocReader(xml_path)
+    #     shapes = t_voc_parse_reader.get_shapes()
+    #     self.load_labels(shapes)
+    #     self.canvas.verified = t_voc_parse_reader.verified
 
     def load_yolo_txt_by_filename(self, txt_path):
         if self.file_path is None:
@@ -1663,18 +1663,18 @@ class MainWindow(QMainWindow, WindowMixin):
         self.load_labels(shapes)
         self.canvas.verified = t_yolo_parse_reader.verified
 
-    def load_create_ml_json_by_filename(self, json_path, file_path):
-        if self.file_path is None:
-            return
-        if os.path.isfile(json_path) is False:
-            return
+    # def load_create_ml_json_by_filename(self, json_path, file_path):
+    #     if self.file_path is None:
+    #         return
+    #     if os.path.isfile(json_path) is False:
+    #         return
 
-        self.set_format(FORMAT_CREATEML)
+    #     self.set_format(FORMAT_CREATEML)
 
-        create_ml_parse_reader = CreateMLReader(json_path, file_path)
-        shapes = create_ml_parse_reader.get_shapes()
-        self.load_labels(shapes)
-        self.canvas.verified = create_ml_parse_reader.verified
+    #     create_ml_parse_reader = CreateMLReader(json_path, file_path)
+    #     shapes = create_ml_parse_reader.get_shapes()
+    #     self.load_labels(shapes)
+    #     self.canvas.verified = create_ml_parse_reader.verified
 
     def copy_previous_bounding_boxes(self):
         current_index = self.m_img_list.index(self.file_path)
