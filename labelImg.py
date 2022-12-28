@@ -237,8 +237,8 @@ class MainWindow(QMainWindow, WindowMixin):
         open_prev_image = action(get_str('prevImg'), self.open_prev_image,
                                  'a', 'prev', get_str('prevImgDetail'))
 
-        verify = action(get_str('verifyImg'), self.verify_image,
-                        'space', 'verify', get_str('verifyImgDetail'))
+        # verify = action(get_str('verifyImg'), self.verify_image,
+        #                 'space', 'verify', get_str('verifyImgDetail'))
 
         save = action(get_str('save'), self.save_file,
                       'Ctrl+S', 'save', get_str('saveDetail'), enabled=False)
@@ -456,7 +456,9 @@ class MainWindow(QMainWindow, WindowMixin):
 
         self.tools = self.toolbar('Tools')
         self.actions.beginner = (
-            open, open_dir, change_save_dir, open_next_image, open_prev_image, verify, save, save_format, None, create, copy, delete, None,
+            open, open_dir, change_save_dir, open_next_image, open_prev_image, 
+            # verify, 
+            save, save_format, None, create, copy, delete, None,
             # zoom_in, zoom, zoom_out, fit_window, fit_width, None,
             # light_brighten, light, light_darken, light_org
             )
@@ -1395,19 +1397,19 @@ class MainWindow(QMainWindow, WindowMixin):
             item = QListWidgetItem(imgPath)
             self.file_list_widget.addItem(item)
 
-    def verify_image(self, _value=False):
-        # Proceeding next image without dialog if having any label
-        if self.file_path is not None:
-            try:
-                self.label_file.toggle_verify()
-            except AttributeError:
-                # If the labelling file does not exist yet, create if and
-                # re-save it with the verified attribute.
-                self.save_file()
-                if self.label_file is not None:
-                    self.label_file.toggle_verify()
-                else:
-                    return
+    # def verify_image(self, _value=False):
+    #     # Proceeding next image without dialog if having any label
+    #     if self.file_path is not None:
+    #         try:
+    #             self.label_file.toggle_verify()
+    #         except AttributeError:
+    #             # If the labelling file does not exist yet, create if and
+    #             # re-save it with the verified attribute.
+    #             self.save_file()
+    #             if self.label_file is not None:
+    #                 self.label_file.toggle_verify()
+    #             else:
+    #                 return
 
             self.canvas.verified = self.label_file.verified
             self.paint_canvas()
