@@ -221,6 +221,9 @@ class MainWindow(QMainWindow, WindowMixin):
         open = action(get_str('openFile'), self.open_file,
                       'Ctrl+O', 'open', get_str('openFileDetail'))
 
+        dark_theme = action(get_str('openDir'), self.dark_theme,
+                         'Ctrl+u', 'open', get_str('openDir'))
+
         open_dir = action(get_str('openDir'), self.open_dir_dialog,
                           'Ctrl+u', 'open', get_str('openDir'))
 
@@ -456,7 +459,7 @@ class MainWindow(QMainWindow, WindowMixin):
 
         self.tools = self.toolbar('Tools')
         self.actions.beginner = (
-            open, open_dir, change_save_dir, open_next_image, open_prev_image, 
+            open, open_dir, change_save_dir, open_next_image, open_prev_image,dark_theme,
             # verify, 
             save, save_format, None, create, copy, delete, None,
             # zoom_in, zoom, zoom_out, fit_window, fit_width, None,
@@ -1358,8 +1361,12 @@ class MainWindow(QMainWindow, WindowMixin):
                 if isinstance(filename, (tuple, list)):
                     filename = filename[0]
 
-            self.load_create_ml_json_by_filename(filename, self.file_path)         
-        
+            self.load_create_ml_json_by_filename(filename, self.file_path)   
+
+    def dark_theme(self, _value=False):
+        qdarktheme.setup_theme()
+        main_win= QMainWindow()
+
 
     def open_dir_dialog(self, _value=False, dir_path=None, silent=False):
         if not self.may_continue():
