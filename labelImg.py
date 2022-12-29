@@ -8,8 +8,9 @@ import shutil
 import sys
 import webbrowser as wb
 from functools import partial
+from PyQt5.QtWidgets import QMessageBox
 #import qdarktheme
-
+import qdarktheme
 try:
     from PyQt5.QtGui import *
     from PyQt5.QtCore import *
@@ -220,6 +221,10 @@ class MainWindow(QMainWindow, WindowMixin):
 
         open = action(get_str('openFile'), self.open_file,
                       'Ctrl+O', 'open', get_str('openFileDetail'))
+        dtheme = action(get_str('lightdarken'), self.dtheme,
+                      'Ctrl+O', 'light_darken', get_str('openFileDetail'))
+        infog = action(get_str('lightbrighten'), self.infog,
+                      'Ctrl+O', 'light_lighten', get_str('openFileDetail'))
 
         open_dir = action(get_str('openDir'), self.open_dir_dialog,
                           'Ctrl+u', 'open', get_str('openDir'))
@@ -390,8 +395,7 @@ class MainWindow(QMainWindow, WindowMixin):
                             #   zoomActions=zoom_actions,
                             #   lightBrighten=light_brighten, lightDarken=light_darken, lightOrg=light_org,
                             #   lightActions=light_actions,
-                              fileMenuActions=(
-                                  open, open_dir, save, save_as, close, reset_all, quit),
+                              fileMenuActions=(infog ,dtheme ,open, open_dir, save, save_as, close, reset_all, quit),
                               beginner=(), advanced=(),
                               editMenu=(edit, copy, delete,
                                         None, color1, self.draw_squares_option),
@@ -428,7 +432,7 @@ class MainWindow(QMainWindow, WindowMixin):
         self.display_label_option.triggered.connect(self.toggle_paint_labels_option)
 
         add_actions(self.menus.file,
-                    (open, open_dir, change_save_dir, open_annotation, copy_prev_bounding, self.menus.recentFiles, save, save_format, save_as, close, reset_all, delete_image, quit))
+                    (dtheme,open, open_dir, change_save_dir, open_annotation, copy_prev_bounding, self.menus.recentFiles, save, save_format, save_as, close, reset_all, delete_image, quit))
         # add_actions(self.menus.help, (help_default, show_info, show_shortcut))
         # add_actions(self.menus.view, (
         #     self.auto_saving,
@@ -452,7 +456,7 @@ class MainWindow(QMainWindow, WindowMixin):
 
         self.tools = self.toolbar('Tools')
         self.actions.beginner = (
-            open, open_dir, change_save_dir, open_next_image, open_prev_image, verify, save, save_format, None, create, copy, delete, None,
+            infog, dtheme,open, open_dir, change_save_dir, open_next_image, open_prev_image, verify, save, save_format, None, create, copy, delete, None,
             # zoom_in, zoom, zoom_out, fit_window, fit_width, None,
             # light_brighten, light, light_darken, light_org
             )
@@ -1478,7 +1482,15 @@ class MainWindow(QMainWindow, WindowMixin):
             self.cur_img_idx = 0
             self.img_count = 1
             self.load_file(filename)
-
+    def dtheme (self, _value=False):
+        qdarktheme.setup_theme()
+        main_win = QMainWindow()
+    def infog (self, _value = False):
+        msg = QMessageBox()
+        msg.setWindowTitle("Önemli Bilgiler")
+        msg.setText("1-Lütfen fotoğrafların istenilen standartlara uygunluğundan emin olun.\n2-Lütfen objeye label işlemi yaparken sadece objeyi hedef alın.\n3-Label işlemini tamamladıktan sonra doğru sınıfı etiketlediğinize emin olun.\n4-Başarılı bir model eğitimi için bu kurallara uyunuz.")
+        x = msg.exec_()
+        msg.setIcon(QMessageBox.Information)
     def save_file(self, _value=False):
         if self.default_save_dir is not None and len(ustr(self.default_save_dir)):
             if self.file_path:
