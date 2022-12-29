@@ -34,7 +34,7 @@ from libs.settings import Settings
 from libs.shape import Shape, DEFAULT_LINE_COLOR, DEFAULT_FILL_COLOR
 from libs.stringBundle import StringBundle
 from libs.canvas import Canvas
-# from libs.zoomWidget import ZoomWidget
+from libs.zoomWidget import ZoomWidget
 from libs.lightWidget import LightWidget
 from libs.labelDialog import LabelDialog
 from libs.colorDialog import ColorDialog
@@ -221,6 +221,9 @@ class MainWindow(QMainWindow, WindowMixin):
         open = action(get_str('openFile'), self.open_file,
                       'Ctrl+O', 'open', get_str('openFileDetail'))
 
+        font_size = action(get_str('openFile'), self.font_size,
+                      'Ctrl+O', 'open', get_str('openFileDetail'))
+
         open_dir = action(get_str('openDir'), self.open_dir_dialog,
                           'Ctrl+u', 'open', get_str('openDir'))
 
@@ -299,57 +302,6 @@ class MainWindow(QMainWindow, WindowMixin):
         show_info = action(get_str('info'), self.show_info_dialog, None, 'help', get_str('info'))
         show_shortcut = action(get_str('shortcut'), self.show_shortcuts_dialog, None, 'help', get_str('shortcut'))
 
-        # zoom = QWidgetAction(self)
-        # zoom.setDefaultWidget(self.zoom_widget)
-        # self.zoom_widget.setWhatsThis(
-        #     u"Zoom in or out of the image. Also accessible with"
-        #     " %s and %s from the canvas." % (format_shortcut("Ctrl+[-+]"),
-        #                                      format_shortcut("Ctrl+Wheel")))
-        # self.zoom_widget.setEnabled(False)
-
-        # zoom_in = action(get_str('zoomin'), partial(self.add_zoom, 10),
-        #                  'Ctrl++', 'zoom-in', get_str('zoominDetail'), enabled=False)
-        # zoom_out = action(get_str('zoomout'), partial(self.add_zoom, -10),
-        #                   'Ctrl+-', 'zoom-out', get_str('zoomoutDetail'), enabled=False)
-        # zoom_org = action(get_str('originalsize'), partial(self.set_zoom, 100),
-        #                   'Ctrl+=', 'zoom', get_str('originalsizeDetail'), enabled=False)
-        # fit_window = action(get_str('fitWin'), self.set_fit_window,
-        #                     'Ctrl+F', 'fit-window', get_str('fitWinDetail'),
-        #                     checkable=True, enabled=False)
-        # fit_width = action(get_str('fitWidth'), self.set_fit_width,
-        #                    'Ctrl+Shift+F', 'fit-width', get_str('fitWidthDetail'),
-        #                    checkable=True, enabled=False)
-        # # Group zoom controls into a list for easier toggling.
-        # zoom_actions = (self.zoom_widget, zoom_in, zoom_out,
-        #                 zoom_org, fit_window, fit_width)
-        # self.zoom_mode = self.MANUAL_ZOOM
-        # self.scalers = {
-        #     self.FIT_WINDOW: self.scale_fit_window,
-        #     self.FIT_WIDTH: self.scale_fit_width,
-        #     # Set to one to scale to 100% when loading files.
-        #     self.MANUAL_ZOOM: lambda: 1,
-        # }
-
-        # light = QWidgetAction(self)
-        # light.setDefaultWidget(self.light_widget)
-        # self.light_widget.setWhatsThis(
-        #     u"Brighten or darken current image. Also accessible with"
-        #     " %s and %s from the canvas." % (format_shortcut("Ctrl+Shift+[-+]"),
-        #                                      format_shortcut("Ctrl+Shift+Wheel")))
-        # self.light_widget.setEnabled(False)
-
-        # light_brighten = action(get_str('lightbrighten'), partial(self.add_light, 10),
-        #                         'Ctrl+Shift++', 'light_lighten', get_str('lightbrightenDetail'), enabled=False)
-        # light_darken = action(get_str('lightdarken'), partial(self.add_light, -10),
-        #                       'Ctrl+Shift+-', 'light_darken', get_str('lightdarkenDetail'), enabled=False)
-        # light_org = action(get_str('lightreset'), partial(self.set_light, 50),
-        #                    'Ctrl+Shift+=', 'light_reset', get_str('lightresetDetail'), checkable=True, enabled=False)
-        # light_org.setChecked(True)
-
-        # # Group light controls into a list for easier toggling.
-        # light_actions = (self.light_widget, light_brighten,
-        #                  light_darken, light_org)
-
         edit = action(get_str('editLabel'), self.edit_label,
                       'Ctrl+E', 'edit', get_str('editLabelDetail'),
                       enabled=False)
@@ -385,13 +337,9 @@ class MainWindow(QMainWindow, WindowMixin):
                               lineColor=color1, create=create, delete=delete, edit=edit, copy=copy,
                               createMode=create_mode, editMode=edit_mode, advancedMode=advanced_mode,
                               shapeLineColor=shape_line_color, shapeFillColor=shape_fill_color,
-                            #   zoom=zoom, zoomIn=zoom_in, zoomOut=zoom_out, zoomOrg=zoom_org,
-                            #   Window=fit_window, fitWidth=ffitit_width,
-                            #   zoomActions=zoom_actions,
-                            #   lightBrighten=light_brighten, lightDarken=light_darken, lightOrg=light_org,
-                            #   lightActions=light_actions,
+                    
                               fileMenuActions=(
-                                  open, open_dir, save, save_as, close, reset_all, quit),
+                                  font_size, open, open_dir, save, save_as, close, reset_all, quit),
                               beginner=(), advanced=(),
                               editMenu=(edit, copy, delete,
                                         None, color1, self.draw_squares_option),
@@ -428,7 +376,7 @@ class MainWindow(QMainWindow, WindowMixin):
         self.display_label_option.triggered.connect(self.toggle_paint_labels_option)
 
         add_actions(self.menus.file,
-                    (open, open_dir, change_save_dir, open_annotation, copy_prev_bounding, self.menus.recentFiles, save, save_format, save_as, close, reset_all, delete_image, quit))
+                    (font_size, open, open_dir, change_save_dir, open_annotation, copy_prev_bounding, self.menus.recentFiles, save, save_format, save_as, close, reset_all, delete_image, quit))
         add_actions(self.menus.help, (help_default, show_info, show_shortcut))
         add_actions(self.menus.view, (
             self.auto_saving,
@@ -436,9 +384,6 @@ class MainWindow(QMainWindow, WindowMixin):
             self.display_label_option,
             labels, advanced_mode, None,
             hide_all, show_all, None,
-            # zoom_in, zoom_out, zoom_org, None,
-            # fit_window, fit_width, None,
-            # light_brighten, light_darken, light_org
             )
             )
 
@@ -452,9 +397,8 @@ class MainWindow(QMainWindow, WindowMixin):
 
         self.tools = self.toolbar('Tools')
         self.actions.beginner = (
-            open, open_dir, change_save_dir, open_next_image, open_prev_image, verify, save, save_format, None, create, copy, delete, None,
-            # zoom_in, zoom, zoom_out, fit_window, fit_width, None,
-            # light_brighten, light, light_darken, light_org
+            font_size, open, open_dir, change_save_dir, open_next_image, open_prev_image, verify, save, save_format, None, create, copy, delete, None,
+
             )
 
         self.actions.advanced = (
@@ -473,7 +417,7 @@ class MainWindow(QMainWindow, WindowMixin):
         self.max_recent = 7
         self.line_color = None
         self.fill_color = None
-        # self.zoom_level = 100
+        self.zoom_level = 100
         self.fit_window = False
         # Add Chris
         self.difficult = False
@@ -1014,71 +958,10 @@ class MainWindow(QMainWindow, WindowMixin):
         bar = self.scroll_bars[orientation]
         bar.setValue(int(bar.value() + bar.singleStep() * units))
 
-    # def set_zoom(self, value):
-    #     self.actions.fitWidth.setChecked(False)
-    #     self.actions.fitWindow.setChecked(False)
-    #     self.zoom_mode = self.MANUAL_ZOOM
-    #     # Arithmetic on scaling factor often results in float
-    #     # Convert to int to avoid type errors
-    #     self.zoom_widget.setValue(int(value))
+  
 
-    # def add_zoom(self, increment=10):
-    #     self.set_zoom(self.zoom_widget.value() + increment)
-
-    # def zoom_request(self, delta):
-    #     # get the current scrollbar positions
-    #     # calculate the percentages ~ coordinates
-    #     h_bar = self.scroll_bars[Qt.Horizontal]
-    #     v_bar = self.scroll_bars[Qt.Vertical]
-
-    #     # get the current maximum, to know the difference after zooming
-    #     h_bar_max = h_bar.maximum()
-    #     v_bar_max = v_bar.maximum()
-
-    #     # get the cursor position and canvas size
-    #     # calculate the desired movement from 0 to 1
-    #     # where 0 = move left
-    #     #       1 = move right
-    #     # up and down analogous
-    #     cursor = QCursor() 
-    #     pos = cursor.pos()
-    #     relative_pos = QWidget.mapFromGlobal(self, pos)
-
-    #     cursor_x = relative_pos.x()
-    #     cursor_y = relative_pos.y()
-
-    #     w = self.scroll_area.width()
-    #     h = self.scroll_area.height()
-
-    #     # the scaling from 0 to 1 has some padding
-    #     # you don't have to hit the very leftmost pixel for a maximum-left movement
-    #     margin = 0.1
-    #     move_x = (cursor_x - margin * w) / (w - 2 * margin * w)
-    #     move_y = (cursor_y - margin * h) / (h - 2 * margin * h)
-
-    #     # clamp the values from 0 to 1
-    #     move_x = min(max(move_x, 0), 1)
-    #     move_y = min(max(move_y, 0), 1)
-
-    #     # zoom in
-    #     units = delta // (8 * 15)
-    #     scale = 10
-    #     self.add_zoom(scale * units)
-
-    #     # get the difference in scrollbar values
-    #     # this is how far we can move
-    #     d_h_bar_max = h_bar.maximum() - h_bar_max
-    #     d_v_bar_max = v_bar.maximum() - v_bar_max
-
-    #     # get the new scrollbar values
-    #     new_h_bar_value = int(h_bar.value() + move_x * d_h_bar_max)
-    #     new_v_bar_value = int(v_bar.value() + move_y * d_v_bar_max)
-
-    #     h_bar.setValue(new_h_bar_value)
-    #     v_bar.setValue(new_v_bar_value)
-
-    def light_request(self, delta):
-        self.add_light(5*delta // (8 * 15))
+    def light_request(self, delta=10):
+        self.add_light(delta)
 
     def set_fit_window(self, value=True):
         if value:
@@ -1098,8 +981,6 @@ class MainWindow(QMainWindow, WindowMixin):
         # Convert to int to avoid type errors
         self.light_widget.setValue(int(value))
 
-    def add_light(self, increment=10):
-        self.set_light(self.light_widget.value() + increment)
 
     def toggle_polygons(self, value):
         for item, shape in self.items_to_shapes.items():
@@ -1222,11 +1103,7 @@ class MainWindow(QMainWindow, WindowMixin):
                 self.load_create_ml_json_by_filename(json_path, file_path)
             
 
-    # def resizeEvent(self, event):
-    #     if self.canvas and not self.image.isNull()\
-    #        and self.zoom_mode != self.MANUAL_ZOOM:
-    #         self.adjust_scale()
-    #     super(MainWindow, self).resizeEvent(event)
+   
 
     def paint_canvas(self):
         assert not self.image.isNull(), "cannot paint null image"
@@ -1236,10 +1113,7 @@ class MainWindow(QMainWindow, WindowMixin):
         self.canvas.adjustSize()
         self.canvas.update()
 
-    # def adjust_scale(self, initial=False):
-    #     value = self.scalers[self.FIT_WINDOW if initial else self.zoom_mode]()
-    #     self.zoom_widget.setValue(int(100 * value))
-
+    
     def scale_fit_window(self):
         """Figure out the size of the pixmap in order to fit the main widget."""
         e = 2.0  # So that no scrollbars are generated.
@@ -1478,6 +1352,10 @@ class MainWindow(QMainWindow, WindowMixin):
             self.cur_img_idx = 0
             self.img_count = 1
             self.load_file(filename)
+
+    def font_size(self, ):
+
+        self.app.setStyleSheet("QWidget{font-size:18px;}")
 
     def save_file(self, _value=False):
         if self.default_save_dir is not None and len(ustr(self.default_save_dir)):
