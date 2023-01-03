@@ -1,6 +1,6 @@
 EaglEyE bir label programıdır.
 
- Bir yapay zeka eğiteceğinizi düşünün. Modelinizin tanımasını istediğiniz nesnenin fotoğrafları ile modelinizi eğitmeniz gerekiyor. 
+Bir yapay zeka eğiteceğinizi düşünün. Modelinizin tanımasını istediğiniz nesnenin fotoğrafları ile modelinizi eğitmeniz gerekiyor. 
 Bu eğitim işleminde nesneyi veya nesneleri tanıtmak için label adını verdiğimiz işaretleme yöntemini kullanıyoruz. 
 EaglEYE olmadan saatlerce sürebilecek bu işlemi, EaglEYE dakikalara düşürerek size vaktinizle daha öenmli işler yapma fırsatı tanıyor. 
 
@@ -34,6 +34,9 @@ Yapmanız gerekenler çok basit!
 İletişim:
 
 191805013@stu.adu.edu.tr -> Görkem Avcı
+
 191805054@stu.adu.edu.tr -> Kevser Öztürk
+
 191805071@stu.adu.edu.tr -> M. Furkan Türk
+
 201805012@stu.adu.edu.tr -> S. Enes Çetinkaya
