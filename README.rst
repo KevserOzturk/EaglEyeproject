@@ -29,7 +29,11 @@ Yapmanız gerekenler çok basit!
   
   Gözlerinin kıymetini bilen bir insan olarak karanlık tema tercih ediyorsanız, karanlık tema butonuyal hayatınızı güzelleştirebilirsiniz. Ya da bu yazılar çok küçük büyüteçt kullandırtmayın bana diyorsanız metin boyutu butonu ile metinleri istediğiniz boyuta göre ayarlayabilirsiniz.
   
-  Programın kullanımı oldukça basittir. Sadece tek bir resim ya da bir resim klasörü seçebilir, eğer işaretlemelerinizin ve sınıflarınızın özel bir klasörde tutulmasını istiyorsanız, istediğiniz klasör atamasını yapabilirsiniz. Resim açıldıktan sonra tek yapmanız gereken seçim oluşturma butonuna basmak. Seçimlerinizi kaydetmek için ise yine menüdeki tuşları kullanabilirsiniz. Yanlışlıkla kaydetmeden diğer resme mi geçtiniz? Hiç problem değil çünkü EaglEYE kaydetmediğinizde sizi uyaran dost canlısı bir uygulamadır. Talep ve önerileriniz için aşağıdaki adreslerden biz email atmaktan çekinmeyin. Sizin için her zmana buradayız.
+  Resim açmak için resim açbutonuna ya da klasör aç butonuna basabilirsiniz. 
+  Label işlemine başlamak için kutu olultur tuşuna basıp kutu oluşturabilirsiniz. Ardından kaydet tuşuna basark işleminizitamamlamış olursunuz, ancak kaydetmeyi unuttuysanız korkmayın sstemimiz size bu konuda uyarı verecektir. 
+  Klasör seçimi yaptıysanız önceki ve sonraki fotoğraflar arasında geçiş yapabilirsiniz. 
+  Karanlık ve açık temalar arasında butonla geçiş yapabilirsiniz. 
+  Yazı boyutunu değiştirmek için tuşa basabilirsiniz. 
 
 İletişim:
 
